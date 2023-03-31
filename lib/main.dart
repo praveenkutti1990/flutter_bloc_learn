@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          primarySwatch: Colors.deepPurple,
         ),
         home: const MyHomePage(title: 'Flutter Demo Home Page'),
       ),
@@ -75,6 +75,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           FloatingActionButton(
             onPressed: () {
@@ -83,12 +84,15 @@ class _MyHomePageState extends State<MyHomePage> {
             tooltip: 'Increment',
             child: const Icon(Icons.add),
           ),
+          SizedBox(
+            width: 30,
+          ),
           FloatingActionButton(
             onPressed: () {
               BlocProvider.of<CounterCubit>(context).decrement();
             },
             tooltip: 'Decrement',
-            child: const Icon(Icons.add),
+            child: const Icon(Icons.remove),
           ),
         ],
       ),
