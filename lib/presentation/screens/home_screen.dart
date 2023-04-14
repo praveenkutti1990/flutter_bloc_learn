@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_bloc_learn/logic/cubit/connectivity_cubit.dart';
 import 'package:flutter_bloc_learn/logic/cubit/counter_cubit.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -22,8 +23,27 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+            BlocBuilder<ConnectivityCubit, ConnectivityState>(
+              builder: (context, state) {
+                if (state is ConnectivityConnected &&
+                    state.connectionType == ConnectionType.Wifi) {
+                  return const Text(
+                    'Wi-Fi',
+                  );
+                } else if (state is ConnectivityConnected &&
+                    state.connectionType == ConnectionType.Mobile) {
+                  return const Text(
+                    'Mobile',
+                  );
+                } else if (state is ConnectivityDisconnected) {
+                  return const Text(
+                    'Disconnected',
+                  );
+                }
+                return const Text(
+                  'Loading',
+                );
+              },
             ),
             BlocConsumer<CounterCubit, CounterState>(
               listener: (context, state) {
