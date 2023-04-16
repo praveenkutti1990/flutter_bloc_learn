@@ -70,6 +70,26 @@ class _HomeScreenState extends State<HomeScreen> {
             const SizedBox(
               height: 30,
             ),
+            Builder(builder: ((context) {
+              final internetCubitState =
+                  context.watch<ConnectivityCubit>().state;
+              final counterCubitState = context.watch<CounterCubit>().state;
+              if (internetCubitState is ConnectivityConnected &&
+                  internetCubitState.connectionType == ConnectionType.Mobile) {
+                return Text(
+                    "Counter: ${counterCubitState.counterValue} Internet: Mobile");
+              } else if (internetCubitState is ConnectivityConnected &&
+                  internetCubitState.connectionType == ConnectionType.Wifi) {
+                return Text(
+                    "Counter: ${counterCubitState.counterValue} Internet: Wifi");
+              } else {
+                return Text(
+                    "Counter: ${counterCubitState.counterValue} Internet: Disconnected");
+              }
+            })),
+            const SizedBox(
+              height: 30,
+            ),
             MaterialButton(
               color: widget.color,
               onPressed: () {
